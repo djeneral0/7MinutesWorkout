@@ -1,5 +1,6 @@
 package com.djeneral.a7minutesworkout
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.djeneral.a7minutesworkout.databinding.ActivityMainBinding
@@ -13,6 +14,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.llStart.setOnClickListener{
             showToat("Clicked")
+            val intent = Intent(this, Exercise::class.java)
+            startActivity(intent)
         }
     }
 }
