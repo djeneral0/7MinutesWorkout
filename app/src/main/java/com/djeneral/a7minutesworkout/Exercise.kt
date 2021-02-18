@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import com.djeneral.a7minutesworkout.classes.Constants
+import com.djeneral.a7minutesworkout.classes.ExerciseModel
 import com.djeneral.a7minutesworkout.databinding.ExerciseBinding
 
 class Exercise : AppCompatActivity() {
@@ -16,6 +18,9 @@ class Exercise : AppCompatActivity() {
     private var exerTimer: CountDownTimer? = null
     private  var exerProgress = 0
     private var exerTimerDuration: Long = 30
+
+    private var exerciseList: ArrayList<ExerciseModel>? = null
+    private var currExercisePosition = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +36,8 @@ class Exercise : AppCompatActivity() {
         }
 
         setupRestView()
+
+        exerciseList = Constants.defaultExerciseList()
     }
 
     private fun setRestProgressBar(){
@@ -44,6 +51,7 @@ class Exercise : AppCompatActivity() {
 
             override fun onFinish() {
 //                showToat("Exercise will start now")
+                currExercisePosition++
                 setExerView()
             }
         }.start()
@@ -59,12 +67,20 @@ class Exercise : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                showToat("We will start the next rest Screen")
+//                showToat("We will start the next rest Screen")
+                if (currExercisePosition < exerciseList?.size!! - 1){
+                    setupRestView()
+                }else{
+                    showToat("Congratulation!, you have finished the 7 minutes workout")
+                }
             }
         }.start()
     }
 
     private fun setupRestView(){
+        binding.llRestView.visibility = View.VISIBLE
+        binding.llExerciseView.visibility = View.GONE
+
         if (restTimer != null){
             restTimer!!.cancel()
             restProgress = 0
@@ -82,6 +98,9 @@ class Exercise : AppCompatActivity() {
         }
 
         setExerciseProgressBar()
+
+        binding.ivImage.setImageResource(exerciseList!![currExercisePosition].getImage())
+        binding.tvExerciseName.text = exerciseList!![currExercisePosition].getName()
     }
 
     override fun onDestroy() {
