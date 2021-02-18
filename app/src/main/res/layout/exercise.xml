@@ -68,6 +68,26 @@
                     tools:text="10" />
             </LinearLayout>
         </FrameLayout>
+        <TextView
+            android:id="@+id/tvUpcoming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            android:textAllCaps="true"
+            android:text="@string/upcoming"
+            />
+        <TextView
+            android:id="@+id/tvUpcomingName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20"
+            android:text="@string/upC"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/llExerciseView"

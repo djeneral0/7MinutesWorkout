@@ -14,6 +14,7 @@ class Exercise : AppCompatActivity() {
     private var restTimer: CountDownTimer? = null
     private var restProgress = 0
     private var restTimerDuration: Long = 10
+    private var upcomingPosition = -1
 
     private var exerTimer: CountDownTimer? = null
     private  var exerProgress = 0
@@ -35,13 +36,20 @@ class Exercise : AppCompatActivity() {
             onBackPressed()
         }
 
-        setupRestView()
-
         exerciseList = Constants.defaultExerciseList()
+        setupRestView()
     }
 
     private fun setRestProgressBar(){
         binding.progressBar.progress = restProgress
+        upcomingPosition++
+        if (upcomingPosition < exerciseList!!.size!! - 1){
+            binding.tvUpcomingName.text = exerciseList!![upcomingPosition].getName()
+        }else{
+            binding.tvUpcomingName.visibility = View.GONE
+            binding.tvUpcoming.visibility = View.GONE
+        }
+
         restTimer = object : CountDownTimer(restTimerDuration * 1000, 1000){
             override fun onTick(millisUntilFinished: Long) {
                 restProgress++

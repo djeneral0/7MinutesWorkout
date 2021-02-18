@@ -3,4 +3,6 @@
     <string name="image">image</string>
     <string name="start">Start</string>
     <string name="getReady">Get Ready For</string>
+    <string name="upcoming">Upcoming Exercise</string>
+    <string name="upC">name</string>
 </resources>

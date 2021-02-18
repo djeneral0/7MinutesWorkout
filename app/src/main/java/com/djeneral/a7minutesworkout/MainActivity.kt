@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.llStart.setOnClickListener{
-            showToat("Clicked")
+//            showToat("Clicked")
             val intent = Intent(this, Exercise::class.java)
             startActivity(intent)
         }
