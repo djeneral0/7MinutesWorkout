@@ -1,5 +1,7 @@
 package com.djeneral.a7minutesworkout
 
+import android.media.MediaPlayer
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -28,6 +30,8 @@ class Exercise : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var currExercisePosition = -1
 
     private var tts: TextToSpeech? = null
+
+    private var player: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,6 +97,16 @@ class Exercise : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun setupRestView(){
+        try{
+//            val soundURL = Uri.parse("android:resource://com.djeneral.a7minutesworkout/" + R.raw.press_start)
+            player = MediaPlayer.create(applicationContext, R.raw.press_start)
+            player!!.isLooping = false
+            player!!.start()
+        }catch(e: Exception){
+            e.printStackTrace()
+        }
+
+
         binding.llRestView.visibility = View.VISIBLE
         binding.llExerciseView.visibility = View.GONE
 
@@ -120,6 +134,10 @@ class Exercise : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     override fun onDestroy() {
+        if(player != null){
+            player!!.stop()
+        }
+
         if (restTimer != null){
             restTimer!!.cancel()
             restProgress = 0
