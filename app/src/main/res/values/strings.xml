@@ -5,4 +5,11 @@
     <string name="getReady">Get Ready For</string>
     <string name="upcoming">Upcoming Exercise</string>
     <string name="upC">name</string>
+    <string name="end">End</string>
+    <string name="congratMess">Congratulation! \nYou have Finished the workout</string>
+    <string name="finish">Finish</string>
+    <string name="congratulation_message">Congratulation message</string>
+    <string name="finish_button_desc">Finish Button</string>
+    <string name="end_workout_screen_desc">End workout screen</string>
+    <string name="congratulation_image_desc">congratulation image</string>
 </resources>

@@ -9,7 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.7MinutesWorkout">
-        <activity android:name=".Exercise"></activity>
+        <activity android:name=".Finish"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            />
+        <activity android:name=".Exercise"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"

@@ -1,5 +1,6 @@
 package com.djeneral.a7minutesworkout
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -101,7 +102,9 @@ class Exercise : AppCompatActivity(), TextToSpeech.OnInitListener {
                     exerciseAdapter!!.notifyDataSetChanged()
                     setupRestView()
                 }else{
-                    showToat("Congratulation!, you have finished the 7 minutes workout")
+                    finish()
+                    startActivity(Intent(this@Exercise, Finish::class.java))
+//                    showToat("Congratulation!, you have finished the 7 minutes workout")
                 }
             }
         }.start()
