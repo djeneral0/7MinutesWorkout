@@ -8,6 +8,8 @@ import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.djeneral.a7minutesworkout.adapter.ExerciseStatusAdapter
 import com.djeneral.a7minutesworkout.classes.Constants
 import com.djeneral.a7minutesworkout.classes.ExerciseModel
 import com.djeneral.a7minutesworkout.databinding.ExerciseBinding
@@ -33,6 +35,8 @@ class Exercise : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private var player: MediaPlayer? = null
 
+    private var exerciseAdapter: ExerciseStatusAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ExerciseBinding.inflate(layoutInflater)
@@ -48,13 +52,15 @@ class Exercise : AppCompatActivity(), TextToSpeech.OnInitListener {
         
         tts = TextToSpeech(this, this)
         exerciseList = Constants.defaultExerciseList()
+        setUpExerciseStatusRecyclerView()
+
         setupRestView()
     }
 
     private fun setRestProgressBar(){
         binding.progressBar.progress = restProgress
         upcomingPosition++
-        if (upcomingPosition < exerciseList!!.size!! - 1){
+        if (upcomingPosition < exerciseList!!.size - 1){
             binding.tvUpcomingName.text = exerciseList!![upcomingPosition].getName()
         }else{
             binding.tvUpcomingName.visibility = View.GONE
@@ -72,6 +78,8 @@ class Exercise : AppCompatActivity(), TextToSpeech.OnInitListener {
 //                showToat("Exercise will start now")
                 currExercisePosition++
                 setExerView()
+                exerciseList!![currExercisePosition].setSelected(true)
+                exerciseAdapter!!.notifyDataSetChanged()
             }
         }.start()
     }
@@ -88,6 +96,9 @@ class Exercise : AppCompatActivity(), TextToSpeech.OnInitListener {
             override fun onFinish() {
 //                showToat("We will start the next rest Screen")
                 if (currExercisePosition < exerciseList?.size!! - 1){
+                    exerciseList!![currExercisePosition].setSelected(false)
+                    exerciseList!![currExercisePosition].setIsCompleted(true)
+                    exerciseAdapter!!.notifyDataSetChanged()
                     setupRestView()
                 }else{
                     showToat("Congratulation!, you have finished the 7 minutes workout")
@@ -169,5 +180,11 @@ class Exercise : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     fun speakOut(text: String){
         tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
+
+    fun setUpExerciseStatusRecyclerView(){
+        binding.rvExerciseStatus.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        exerciseAdapter = ExerciseStatusAdapter(exerciseList!!, this)
+        binding.rvExerciseStatus.adapter = exerciseAdapter
     }
 }

@@ -17,7 +17,6 @@ class Constants{
                     2,
                     "Wall Sit",
                     R.drawable.ic_wall_sit)
-            exerciseList.add(jumpingJacks)
             exerciseList.add(wallSit)
 
             val pushUp = ExerciseModel(
