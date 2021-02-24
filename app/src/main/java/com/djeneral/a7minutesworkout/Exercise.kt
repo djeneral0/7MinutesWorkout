@@ -1,5 +1,6 @@
 package com.djeneral.a7minutesworkout
 
+import android.app.Dialog
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
@@ -8,17 +9,20 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.djeneral.a7minutesworkout.adapter.ExerciseStatusAdapter
 import com.djeneral.a7minutesworkout.classes.Constants
 import com.djeneral.a7minutesworkout.classes.ExerciseModel
+import com.djeneral.a7minutesworkout.databinding.CustomeDialogBackConBinding
 import com.djeneral.a7minutesworkout.databinding.ExerciseBinding
 import java.util.*
 import kotlin.collections.ArrayList
 
 class Exercise : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var binding: ExerciseBinding
+    private lateinit var conBinding: CustomeDialogBackConBinding
 
     private var restTimer: CountDownTimer? = null
     private var restProgress = 0
@@ -47,8 +51,8 @@ class Exercise : AppCompatActivity(), TextToSpeech.OnInitListener {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        binding.tbExercise.setOnClickListener {
-            onBackPressed()
+        binding.tbExercise.setNavigationOnClickListener {
+            customDialogFor()
         }
         
         tts = TextToSpeech(this, this)
@@ -189,5 +193,23 @@ class Exercise : AppCompatActivity(), TextToSpeech.OnInitListener {
         binding.rvExerciseStatus.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         exerciseAdapter = ExerciseStatusAdapter(exerciseList!!, this)
         binding.rvExerciseStatus.adapter = exerciseAdapter
+    }
+
+    private fun  customDialogFor(){
+        print("Sika")
+        conBinding = CustomeDialogBackConBinding.inflate(LayoutInflater.from(this@Exercise))
+        val customDialog = Dialog(this)
+        customDialog.setContentView(conBinding.root)
+
+        conBinding.btnYes.setOnClickListener{
+            finish()
+            customDialog.dismiss()
+        }
+
+        conBinding.btnNo.setOnClickListener{
+            customDialog.dismiss()
+        }
+
+        customDialog.show()
     }
 }

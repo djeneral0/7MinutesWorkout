@@ -12,4 +12,6 @@
     <string name="finish_button_desc">Finish Button</string>
     <string name="end_workout_screen_desc">End workout screen</string>
     <string name="congratulation_image_desc">congratulation image</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="this_will_stop">This will stop your workout. You\'ve come this far, are you sure you want to quit?</string>
 </resources>
