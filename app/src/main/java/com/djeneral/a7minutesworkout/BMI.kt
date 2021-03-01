@@ -30,14 +30,31 @@ class BMI : AppCompatActivity() {
         }
 
         binding.btnCal.setOnClickListener{
-            if (validateMetricUnits()){
-                val heightValue: Float = binding.eMetricUnitheight.text.toString().toFloat() / 100
-                val weightValue: Float = binding.eMetricUnitWeight.text.toString().toFloat()
+            when(currentVisibleView){
+                METRIC_UNITS_VIEW ->{
+                    when {
+                        validateMetricUnits() -> {
+                            val heightValue: Float = binding.eMetricUnitheight.text.toString().toFloat() / 100
+                            val weightValue: Float = binding.eMetricUnitWeight.text.toString().toFloat()
 
-                val bmi = weightValue / (heightValue * heightValue)
-                displayBMIResult(bmi)
-            }else{
-                showToat("Please enter valid Values.")
+                            val bmi = weightValue / (heightValue * heightValue)
+                            displayBMIResult(bmi)
+                        }
+                        else -> { showToat("Please enter valid Values.") }
+                    }
+                }else -> {
+                    when{
+                        validateUSUnits() ->{
+                            val hVFeet: String = binding.eUSUnitHeightFeet.text.toString()
+                            val hVInch: String = binding.eUSUnitheightInch.text.toString()
+                            val vWeight: Float = binding.eUSUnitWeight.text.toString().toFloat()
+
+                            val heightValue = hVInch.toFloat() + hVFeet.toFloat() * 12
+                            val bmi = 703 * (vWeight / (heightValue * heightValue))
+                            displayBMIResult(bmi)
+                        }else -> {showToat("Please enter valid Values.")}
+                    }
+                }
             }
         }
         visibleMetricView()
@@ -99,11 +116,25 @@ class BMI : AppCompatActivity() {
     private fun validateMetricUnits(): Boolean {
         var isValid = true
 
-        if(binding.eMetricUnitWeight.text.toString().isEmpty()){
-            isValid = false
-        }else if(binding.eMetricUnitheight.text.toString().isEmpty()){
-            isValid = false
+        when {
+            binding.eMetricUnitWeight.text.toString().isEmpty() -> {
+                isValid = false
+            }
+            binding.eMetricUnitheight.text.toString().isEmpty() -> {
+                isValid = false
+            }
         }
+        return isValid
+    }
+
+    fun validateUSUnits(): Boolean {
+        var isValid = true
+        when {
+            binding.eUSUnitWeight.text.toString().isEmpty() -> { isValid = false }
+            binding.eUSUnitHeightFeet.text.toString().isEmpty() -> { isValid = false }
+            binding.eUSUnitheightInch.text.toString().isEmpty() -> { isValid = false }
+        }
+
         return isValid
     }
 
