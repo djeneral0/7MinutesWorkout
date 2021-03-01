@@ -9,6 +9,10 @@ import java.math.RoundingMode
 
 class BMI : AppCompatActivity() {
     private lateinit var binding: BmiBinding
+    val METRIC_UNITS_VIEW = "METRIC_UNITS_VIEW"
+    val US_UNITS_VIEW = "US_UNITS_VIEW"
+
+    var currentVisibleView: String = METRIC_UNITS_VIEW
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +38,17 @@ class BMI : AppCompatActivity() {
                 displayBMIResult(bmi)
             }else{
                 showToat("Please enter valid Values.")
+            }
+        }
+        visibleMetricView()
+        binding.rgUnits.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.rbMetricUnits -> {
+                    visibleMetricView()
+                }
+                else -> {
+                    visibleUSView()
+                }
             }
         }
     }
@@ -73,10 +88,7 @@ class BMI : AppCompatActivity() {
             }
         }
 
-        binding.tvYourBmi.visibility = View.VISIBLE
-        binding.tvBmiValue.visibility = View.VISIBLE
-        binding.tvBmiType.visibility = View.VISIBLE
-        binding.tvBmiDesc.visibility = View.VISIBLE
+        binding.llDisplayResult.visibility = View.VISIBLE
 
         val bmiValue = BigDecimal(bmi.toDouble()).setScale(2, RoundingMode.HALF_EVEN).toString()
         binding.tvBmiValue.text = bmiValue
@@ -93,6 +105,33 @@ class BMI : AppCompatActivity() {
             isValid = false
         }
         return isValid
+    }
+
+    private fun visibleMetricView(){
+        currentVisibleView = METRIC_UNITS_VIEW
+        binding.eMetricUnitWeight.text!!.clear()
+        binding.eMetricUnitheight.text!!.clear()
+
+        binding.tilMetricUnitWeight.visibility = View.VISIBLE
+        binding.tilMetricUnitheight.visibility = View.VISIBLE
+
+        binding.tilUSUnitWeight.visibility  = View.GONE
+        binding.llUSUnitHeight.visibility = View.GONE
+        binding.llDisplayResult.visibility = View.GONE
+    }
+
+    private fun visibleUSView(){
+        currentVisibleView = US_UNITS_VIEW
+        binding.tilMetricUnitWeight.visibility = View.GONE
+        binding.tilMetricUnitheight.visibility = View.GONE
+
+        binding.eUSUnitWeight.text!!.clear()
+        binding.eUSUnitHeightFeet.text!!.clear()
+        binding.eUSUnitheightInch.text!!.clear()
+
+        binding.tilUSUnitWeight.visibility  = View.VISIBLE
+        binding.llUSUnitHeight.visibility = View.VISIBLE
+        binding.llDisplayResult.visibility = View.GONE
     }
 
 }
