@@ -21,5 +21,9 @@ class MainActivity : AppCompatActivity() {
         binding.llBMI.setOnClickListener{
             startActivity(Intent(this, BMI::class.java))
         }
+        
+        binding.llHistory.setOnClickListener{
+            startActivity(Intent(this, History::class.java))
+        }
     }
 }

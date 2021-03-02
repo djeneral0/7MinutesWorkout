@@ -23,4 +23,6 @@
     <string name="normal">Normal</string>
     <string name="inch">Inch</string>
     <string name="feet">Feet</string>
+    <string name="history">History</string>
+    <string name="calBmi">CALCULATE BMI</string>
 </resources>

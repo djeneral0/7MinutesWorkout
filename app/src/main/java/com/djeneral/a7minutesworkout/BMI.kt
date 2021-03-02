@@ -23,7 +23,7 @@ class BMI : AppCompatActivity() {
 
 //        val actionBar = supportActionBar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "CALCULATE BMI"
+        supportActionBar?.title = getString(R.string.calBmi).toUpperCase()
 
         binding.tbBmi.setNavigationOnClickListener{
             onBackPressed()
