@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".History">
+    tools:context=".History"
+    android:orientation="vertical"
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_history"
@@ -13,5 +15,42 @@
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/white"
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/tvHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:textSize="18sp"
+            android:gravity="center"
+            tools:visibility="visible"
+            android:text="@string/exercise_completed"
+            android:layout_margin="@dimen/dp10"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHistory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+        <TextView
+            android:id="@+id/tvNoDate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/no_data_available"
+            android:textColor="#212121"
+            android:visibility="visible"
+            android:gravity="center"
+            android:textSize="22sp"
+            tools:visibility="gone"
+            />
+    </LinearLayout>
 
 </LinearLayout>
